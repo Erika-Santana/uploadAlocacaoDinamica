@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct{
+    char nome[30];
+    int notas[4];
+    int matricula;
+
+}Aluno;
+
+
+int funcaoAlunos(Aluno * ptrAluno, int minimoMedia, int tamanhoVetor );
+
+int main(int argc, char const *argv[])
+{
+    int n, media = 0;
+    int j = 1;
+    int alunosAcimaMedia = 0;
+    
+    Aluno *ptrAlunos; //CRIEI O PONTEIRO DA ESTRUTURA
+    printf("DIGITE A QUANTIDADE DE ALUNOS: ");
+    scanf("%d", &n);
+
+    printf("DIGITE A MÉDIA MÍNIMA: ");
+    scanf("%d", &media);
+
+    alunosAcimaMedia = funcaoAlunos(ptrAlunos, media, n);
+
+    printf("A QUANTIDADE E ALUNOS QUE ESTÃO COM A NOTA ACIMA DA MÉDIA É IGUAL A: [%d]", alunosAcimaMedia);
+
+    for (int i = 0; i < n; i++)
+    {
+        free(ptrAlunos);
+    }
+    
+    return 0;
+}
+
+int funcaoAlunos(Aluno * ptrAluno, int minimoMedia, int tamanhoVetor ){
+    int j = 1;
+    double nota = 0.0;
+    int quantidadeAluno = 0;
+    ptrAluno = (Aluno *)malloc(tamanhoVetor * sizeof(Aluno));
+
+    for (int i = 1; i <= tamanhoVetor; i++)
+    {
+        printf("DIGITE O NOME DO ALUNO [%d]: \n", i);
+        scanf("%s", ptrAluno[i].nome);
+        getchar();
+
+        printf("DIGITE A MATRICULA DO ALUNO [%d]: \n", i);
+        scanf("%d", &ptrAluno[i].matricula);
+
+       while (j <= 4)
+       {
+        printf("DIGITE A [%d] NOTA DO ALUNO [%d]: \n", j,i);
+        scanf("%lf", &nota);
+        getchar();
+        nota += nota;
+        j++;
+       }
+       j = 1;
+       
+
+       if (nota/4 >= minimoMedia)
+       {
+        quantidadeAluno++;
+       }
+       nota = 0.0;
+       
+    }
+
+    return quantidadeAluno;
+}
+
+
+
